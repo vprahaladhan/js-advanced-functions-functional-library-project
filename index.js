@@ -88,31 +88,27 @@ const fi = (function() {
     
     uniq: function(array, sorted = false, callback) {
       let newArray = [];
+      let arrayToReturn = [];
       let callbackArray = [];
       
       for (let i = 0; i < array.length; i++) {
         let found = false;
+        
+        if (callback && !callbackArray.includes(callback(array[i]))) {
+          callbackArray.push(callback(array[i]));
+          arrayToReturn.push(array[i]);
+        }
 
-        if (callback) {
-          return array.filter(item => {
-            if (!callbackArray.includes(callback(array[i]))) {
-              callbackArray.push(callback(array[i]));
-              return true;
-            } 
-            return false;
-          });
-        };
-      
         for (let j = 0; j < i; j++) {
           if (array[i] === array[j]) {
             found = true;
             break; 
           }
         }
-        
         if (!found) newArray.push(array[i]);
       }
-      return newArray;
+
+      return callback ? arrayToReturn : newArray;
     },
 
     keys: function(object) {
@@ -140,7 +136,5 @@ const fi = (function() {
     }
   }
 })();
-
-console.log(fi.uniq([1, 1, 2, 3, 2, 4, 5, 6, 1]));
 
 fi.libraryMethod();
