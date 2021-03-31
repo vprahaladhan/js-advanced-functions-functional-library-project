@@ -37,8 +37,6 @@ describe('index.js', function () {
     const testObj = Object.assign({}, unmodifiedTestObj)
     const callback = (x) => (x * 3)
 
-
-
     it('successfully returns a correctly populated array', function () {
       const arrResult = fi.map(testArr, callback)
       expect(arraysEqual([3, 6, 9, 12], arrResult)).to.equal(true);
@@ -47,8 +45,6 @@ describe('index.js', function () {
     it('does not modify the original array', function () {
       expect(arraysEqual(testArr, unmodifiedTestArr)).to.equal(true);
     })
-
-
 
     it('successfully returns a correctly populated array from modified object values', function () {
       const objResult = fi.map(testObj, callback)
@@ -242,7 +238,6 @@ describe('index.js', function () {
 
     it('removes duplicate values from an array when an iteratee is applied', function () {
       const newArr = fi.uniq([1, 2, 2, 3, 4, 6, 9], false, (val => val % 3))
-      console.log(newArr)
       expect(arraysEqual(newArr, [1, 2, 3])).to.equal(true)
     })
 
